@@ -222,6 +222,7 @@ void movimentarCarros(){
             } else if(verificarColisao(chegada, i)){
                 carros[i].Finalizou = 1;
                 carros[i].Colocacao = Colocacao;
+                printf("\n finalizou");
                 Colocacao ++;
             } else {
                 carros[i].X = carros[i].X + carros[i].VX;

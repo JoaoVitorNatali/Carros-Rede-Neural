@@ -1,6 +1,7 @@
 PIGEvento evento;
 PIGTeclado meuTeclado;
 double timerDesenho;
+double timerAcoes;
 double timerJogo;
 
 

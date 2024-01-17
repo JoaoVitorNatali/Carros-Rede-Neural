@@ -1,3 +1,4 @@
+#include <time.h>
 #include "PIG.h"
 #include "redeNeural.c"
 #include "definicoes.h"
@@ -50,6 +51,7 @@ void configuracoesIniciais(){
     meuTeclado = GetTeclado();
     timerDesenho = CriaTimer();
     timerJogo = CriaTimer();
+    timerAcoes = CriaTimer();
 
     Fonte = CriaFonteNormal("..\\fontes\\arial.ttf", 15, VERDE, 0, PRETO);
 
@@ -142,21 +144,28 @@ void verificarTeclado(){
 }
 
 int main( int argc, char* args[] ){
+    srand(time(NULL));
 
     configuracoesIniciais();
 
     while(jogoRodando() && JogoRodando()){
         evento = GetEvento();
 
-        if(TempoDecorrido(timerDesenho) >= 0.01){
+        if(TempoDecorrido(timerDesenho) >= 0.03){
+            desenhar();
+            ReiniciaTimer(timerDesenho);
+        }
+
+        if(TempoDecorrido(timerAcoes) >= 0.01){
             verificarTeclado();
             verificarInteracaoJogador();
             movimentarCamera();
 
             movimentarObjetos();
             controlarCarros();
-            desenhar();
-            ReiniciaTimer(timerDesenho);
+            ReiniciaTimer(timerAcoes);
+
+            if(MODO_JOGO == MODO_TESTE) verificarEstadoPartida();
         }
 
         if(TempoDecorrido(timerJogo) >= 20 && MODO_JOGO != MODO_TESTE){
